@@ -843,6 +843,13 @@ drawbar(Monitor *m)
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+
+		if (ulineall || m->tagset[m->seltags] & 1 << i)
+                        drw_rect(drw, x + ulinepad, bh - ulinestroke - ulinevoffset, w - (ulinepad * 2), ulinestroke, 1, 0);
+
+		if (occ & 1 << i)
+			drw_rect(drw, x + boxs, boxs, boxw, boxw, m == selmon && selmon->sel && selmon->sel->tags & 1 << i, urg & 1 << 1);
+
 		x += w;
 	}
 	w = TEXTW(m->ltsymbol);
@@ -863,7 +870,7 @@ drawbar(Monitor *m)
 	drw_map(drw, m->barwin, 0, 0, m->ww - stw, bh);
 }
 
-void
+	void
 drawbars(void)
 {
 	Monitor *m;
@@ -872,7 +879,7 @@ drawbars(void)
 		drawbar(m);
 }
 
-void
+	void
 enternotify(XEvent *e)
 {
 	Client *c;
@@ -891,7 +898,7 @@ enternotify(XEvent *e)
 	focus(c);
 }
 
-void
+	void
 expose(XEvent *e)
 {
 	Monitor *m;
@@ -904,7 +911,7 @@ expose(XEvent *e)
 	}
 }
 
-void
+	void
 focus(Client *c)
 {
 	if (!c || !ISVISIBLE(c))
@@ -930,7 +937,7 @@ focus(Client *c)
 }
 
 /* there are some broken focus acquiring clients needing extra handling */
-void
+	void
 focusin(XEvent *e)
 {
 	XFocusChangeEvent *ev = &e->xfocus;
@@ -939,7 +946,7 @@ focusin(XEvent *e)
 		setfocus(selmon->sel);
 }
 
-void
+	void
 focusmon(const Arg *arg)
 {
 	Monitor *m;
@@ -953,7 +960,7 @@ focusmon(const Arg *arg)
 	focus(NULL);
 }
 
-void
+	void
 focusstack(const Arg *arg)
 {
 	Client *c = NULL, *i;
@@ -979,7 +986,7 @@ focusstack(const Arg *arg)
 	}
 }
 
-Atom
+	Atom
 getatomprop(Client *c, Atom prop)
 {
 	int format;
