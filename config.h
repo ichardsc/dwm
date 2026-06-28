@@ -11,6 +11,8 @@ static const int ulinestroke = 2;     /* thickness */
 static const int ulinevoffset = 0;    /* vertical offset */
 static const int ulineall = 0;        /* 1 = underline all tags */
 
+static const unsigned int gappx     = 5;
+
 static const int showsystray        = 1;        /* 0 means no systray */
 
 
@@ -59,6 +61,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
+#define ALT Mod1Mask
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -99,6 +102,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
+	{ MODKEY,                       XK_plus,   setgaps,        {.i = +1 } },
+	{ ALT,		                XK_0,      setgaps,        {.i = 0  } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
