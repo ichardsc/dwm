@@ -60,6 +60,8 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
+#define SESSION_FILE "/tmp/dwm-session"
+
 /* key definitions */
 #define ALT Mod1Mask
 #define MODKEY Mod4Mask
