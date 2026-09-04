@@ -17,6 +17,9 @@ This repository contains my customized `dwm` source code with a collection of pa
 * status2d
 * restartsig
 * fullgaps
+* autostart
+* pertag
+* restore_after_restart
 
 ## Status Bar
 
