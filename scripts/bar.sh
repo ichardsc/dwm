@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# --- Detección de interfaces ---
+WIFI_IFACE=$(ls /sys/class/net | grep '^w' | head -1)
+ETH_IFACE=$(ls /sys/class/net | grep '^e' | head -1)
+
 while true; do
     VOL="$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{gsub(/\./, ","); print int($2*100)}')$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 'M' || echo '%')"
     MEM="$(free -h | awk '/Mem:/ {print $3 "/" $2}')"
@@ -7,8 +11,8 @@ while true; do
     BAT="$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null)%"
     TIME="$(date '+%H:%M')"
 
-    WIFI_IP=$(ip -4 addr show wlo1 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
-    ETH_IP=$(ip -4 addr show enp1s0 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
+    WIFI_IP=$(ip -4 addr show $WIFI_IFACE 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
+    ETH_IP=$(ip -4 addr show $ETH_IFACE 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
 
     if [ -n "$WIFI_IP" ]; then
         WIFI="^c#89b4fa^󰖩 $WIFI_IP^d^"
